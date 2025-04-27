@@ -5,8 +5,6 @@ import subprocess
 import sys
 
 from setuptools import Command, Extension, setup, find_packages
-from setuptools.command.test import test as TestCommand
-
 
 def define_extensions(cythonize=False):
 
@@ -116,25 +114,6 @@ class Clean(Command):
         subprocess.call(['rm', os.path.join(pth, 'glove', 'glove_cython.so')])
 
 
-class PyTest(TestCommand):
-    user_options = [('pytest-args=', 'a', "Arguments to pass to py.test")]
-
-    def initialize_options(self):
-        TestCommand.initialize_options(self)
-        self.pytest_args = ['tests/']
-
-    def finalize_options(self):
-        TestCommand.finalize_options(self)
-        self.test_args = []
-        self.test_suite = True
-
-    def run_tests(self):
-        # import here, cause outside the eggs aren't loaded
-        import pytest
-        errno = pytest.main(self.pytest_args)
-        sys.exit(errno)
-
-
 setup(
     name='glove_python',
     version='0.1.0',
@@ -143,8 +122,7 @@ setup(
     long_description='',
     packages=find_packages(),
     install_requires=['numpy', 'scipy'],
-    tests_require=['pytest'],
-    cmdclass={'test': PyTest, 'cythonize': Cythonize, 'clean': Clean},
+    cmdclass={'cythonize': Cythonize, 'clean': Clean},
     author='Maciej Kula',
     url='https://github.com/maciejkula/glove-python',
     download_url='https://github.com/maciejkula/glove-python/tarball/0.1.0',
