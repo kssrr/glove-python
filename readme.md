@@ -1,3 +1,5 @@
+*Note:* I only made minimal modifications to make this build with modern Python versions (tested with 3.12).
+
 # glove-python
 
 [![Circle CI](https://circleci.com/gh/maciejkula/glove-python.svg?style=svg)](https://circleci.com/gh/maciejkula/glove-python)
